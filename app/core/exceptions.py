@@ -1,9 +1,4 @@
-"""
-Global exception handlers module.
-
-Registers exception handlers on the FastAPI application to ensure
-all errors return a consistent response format.
-"""
+"""Global exception handlers -- memastikan semua error dikembalikan dalam format response yang konsisten."""
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
@@ -11,20 +6,12 @@ from fastapi.responses import JSONResponse
 
 
 def register_exception_handlers(app: FastAPI) -> None:
-    """
-    Register global exception handlers on the FastAPI application.
-
-    Handles:
-        - RequestValidationError (422)
-        - HTTPException (variable status code)
-        - Generic Exception (500)
-    """
+    """Registrasi handler untuk validation error, HTTP error, dan unhandled exception."""
 
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(
         request: Request, exc: RequestValidationError
     ) -> JSONResponse:
-        """Handle Pydantic validation errors with a consistent response format."""
         errors = exc.errors()
         error_messages = []
         for error in errors:
@@ -45,7 +32,6 @@ def register_exception_handlers(app: FastAPI) -> None:
     async def http_exception_handler(
         request: Request, exc: HTTPException
     ) -> JSONResponse:
-        """Handle HTTP exceptions with a consistent response format."""
         return JSONResponse(
             status_code=exc.status_code,
             content={
@@ -59,7 +45,6 @@ def register_exception_handlers(app: FastAPI) -> None:
     async def generic_exception_handler(
         request: Request, exc: Exception
     ) -> JSONResponse:
-        """Handle unexpected exceptions with a 500 response."""
         return JSONResponse(
             status_code=500,
             content={
