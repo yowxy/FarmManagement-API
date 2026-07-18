@@ -1,5 +1,3 @@
-"""Business logic untuk operasi CRUD farm."""
-
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
@@ -12,7 +10,6 @@ def get_all_farms(db: Session) -> list[Farm]:
 
 
 def get_farm_by_id(db: Session, farm_id: int) -> Farm:
-    """Ambil farm berdasarkan ID. Raise 404 jika tidak ditemukan."""
     farm = db.query(Farm).filter(Farm.id == farm_id).first()
     if not farm:
         raise HTTPException(status_code=404, detail="Farm not found")
@@ -28,7 +25,6 @@ def create_farm(db: Session, farm_data: FarmCreate) -> Farm:
 
 
 def update_farm(db: Session, farm_id: int, farm_data: FarmUpdate) -> Farm:
-    """Update field yang dikirim saja (partial update). Raise 404 jika tidak ditemukan."""
     farm = get_farm_by_id(db, farm_id)
 
     for field, value in farm_data.model_dump(exclude_unset=True).items():
@@ -40,7 +36,6 @@ def update_farm(db: Session, farm_id: int, farm_data: FarmUpdate) -> Farm:
 
 
 def delete_farm(db: Session, farm_id: int) -> Farm:
-    """Hapus farm dari database. Raise 404 jika tidak ditemukan."""
     farm = get_farm_by_id(db, farm_id)
     db.delete(farm)
     db.commit()

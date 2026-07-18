@@ -1,5 +1,3 @@
-"""Helper untuk membuat response API dengan format yang konsisten."""
-
 from typing import Any
 
 from fastapi.responses import JSONResponse

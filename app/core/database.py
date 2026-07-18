@@ -1,5 +1,3 @@
-"""Konfigurasi database -- engine, session, dan dependency injection."""
-
 import os
 
 from dotenv import load_dotenv
@@ -25,7 +23,6 @@ Base = declarative_base()
 
 
 def get_db():
-    """Dependency yang menyediakan database session per-request."""
     db = SessionLocal()
     try:
         yield db

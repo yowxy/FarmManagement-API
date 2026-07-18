@@ -1,14 +1,10 @@
-"""Pydantic schemas untuk validasi request dan serialisasi response Farm."""
-
 from datetime import datetime
-from typing import Any, Optional
+from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
 class FarmCreate(BaseModel):
-    """Schema untuk membuat farm baru."""
-
     name: str = Field(
         ...,
         min_length=1,
@@ -38,8 +34,6 @@ class FarmCreate(BaseModel):
 
 
 class FarmUpdate(BaseModel):
-    """Schema untuk update farm. Semua field opsional (partial update)."""
-
     name: Optional[str] = Field(
         None,
         min_length=1,
@@ -69,8 +63,6 @@ class FarmUpdate(BaseModel):
 
 
 class FarmResponse(BaseModel):
-    """Schema response untuk satu record farm."""
-
     model_config = ConfigDict(from_attributes=True)
 
     id: int

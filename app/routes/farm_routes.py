@@ -1,5 +1,3 @@
-"""Endpoint CRUD untuk resource /farms."""
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -12,7 +10,6 @@ router = APIRouter(prefix="/farms", tags=["Farms"])
 
 
 def _serialize(farm) -> dict:
-    """Konversi ORM object ke dict yang siap dijadikan JSON response."""
     return FarmResponse.model_validate(farm).model_dump(mode="json")
 
 

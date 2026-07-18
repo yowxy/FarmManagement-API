@@ -1,5 +1,3 @@
-"""Entry point -- konfigurasi FastAPI, registrasi routes, dan inisialisasi database."""
-
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -11,7 +9,6 @@ from app.routes.farm_routes import router as farm_router
 
 @asynccontextmanager
 async def lifespan(application: FastAPI):
-    """Buat tabel database saat aplikasi mulai berjalan."""
     Base.metadata.create_all(bind=engine)
     yield
 

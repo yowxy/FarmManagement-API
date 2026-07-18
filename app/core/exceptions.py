@@ -1,12 +1,9 @@
-"""Global exception handlers -- memastikan semua error dikembalikan dalam format response yang konsisten."""
-
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 
 def register_exception_handlers(app: FastAPI) -> None:
-    """Registrasi handler untuk validation error, HTTP error, dan unhandled exception."""
 
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(
